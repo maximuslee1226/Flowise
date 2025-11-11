@@ -108,3 +108,6 @@ prompts.txt
 ## S/MIME message
 *.smime
 *.vsix
+
+## custom docker compose
+docker-compose-f5.yml
