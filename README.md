@@ -1,7 +1,7 @@
 <!-- markdownlint-disable MD030 -->
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/FlowiseAI/Flowise/main/images/f5-logo.png" width="400">
+<img src="https://raw.githubusercontent.com/maximuslee1226/Flowise/main/images/f5-logo.png" width="400">
 </p>
 
 <div align="center">
