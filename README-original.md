@@ -1,7 +1,8 @@
 <!-- markdownlint-disable MD030 -->
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/FlowiseAI/Flowise/main/images/f5-logo.png" width="400">
+<img src="https://github.com/FlowiseAI/Flowise/blob/main/images/flowise_white.svg#gh-light-mode-only">
+<img src="https://github.com/FlowiseAI/Flowise/blob/main/images/flowise_dark.svg#gh-dark-mode-only">
 </p>
 
 <div align="center">
@@ -16,8 +17,7 @@ English | [繁體中文](./i18n/README-TW.md) | [简体中文](./i18n/README-ZH.
 
 </div>
 
-<h3>F5 AI Agent Workflow Design Hub</h3>
-<h4>Build AI Agents, Visually</h4>
+<h3>Build AI Agents, Visually</h3>
 <a href="https://github.com/FlowiseAI/Flowise">
 <img width="100%" src="https://github.com/FlowiseAI/Flowise/blob/main/images/flowise_agentflow.gif?raw=true"></a>
 
@@ -124,7 +124,7 @@ Flowise has 3 different modules in a single mono repository.
     ```
 
     <details>
-    <summary>Exit code 134 (JavaScript heap out of memory)</summary>
+    <summary>Exit code 134 (JavaScript heap out of memory)</summary>  
     If you get this error when running the above `build` script, try increasing the Node.js heap size and run the script again:
 
     ```bash
@@ -235,9 +235,3 @@ See [Contributing Guide](CONTRIBUTING.md). Reach out to us at [Discord](https://
 ## 📄 License
 
 Source code in this repository is made available under the [Apache License Version 2.0](LICENSE.md).
-
----
-
-<p align="center">
-<strong>Powered by F5</strong>
-</p>
