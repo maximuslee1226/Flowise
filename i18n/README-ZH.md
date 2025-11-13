@@ -80,7 +80,7 @@ Flowise 在一个单一的代码库中有 3 个不同的模块。
 1. 克隆仓库
 
     ```bash
-    git clone https://github.com/FlowiseAI/Flowise.git
+    git clone https://github.com/maximuslee1226/Flowise.git
     ```
 
 2. 进入仓库文件夹

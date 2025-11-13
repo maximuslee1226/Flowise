@@ -80,7 +80,7 @@ Flowise には、3 つの異なるモジュールが 1 つの mono リポジト�
 1. リポジトリをクローン
 
     ```bash
-    git clone https://github.com/FlowiseAI/Flowise.git
+    git clone https://github.com/maximuslee1226/Flowise.git
     ```
 
 2. リポジトリフォルダに移動

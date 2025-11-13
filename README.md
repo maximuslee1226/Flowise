@@ -102,7 +102,7 @@ Flowise has 3 different modules in a single mono repository.
 1.  Clone the repository:
 
     ```bash
-    git clone https://github.com/FlowiseAI/Flowise.git
+    git clone https://github.com/maximuslee1226/Flowise.git
     ```
 
 2.  Go into repository folder:
@@ -168,7 +168,7 @@ Flowise has 3 different modules in a single mono repository.
 
 ## 🌱 Env Variables
 
-Flowise supports different environment variables to configure your instance. You can specify the following variables in the `.env` file inside `packages/server` folder. Read [more](https://github.com/FlowiseAI/Flowise/blob/main/CONTRIBUTING.md#-env-variables)
+Flowise supports different environment variables to configure your instance. You can specify the following variables in the `.env` file inside `packages/server` folder. Read [more](https://github.com/maximuslee1226/Flowise/blob/main/CONTRIBUTING.md#-env-variables)
 
 ## 📖 Documentation
 
@@ -218,7 +218,7 @@ Get Started with [Flowise Cloud](https://flowiseai.com/).
 
 ## 🙋 Support
 
-Feel free to ask any questions, raise problems, and request new features in [Discussion](https://github.com/FlowiseAI/Flowise/discussions).
+Feel free to ask any questions, raise problems, and request new features in [Discussion](https://github.com/maximuslee1226/Flowise/discussions).
 
 ## 🙌 Contributing
 

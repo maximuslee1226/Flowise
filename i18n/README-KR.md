@@ -80,7 +80,7 @@ Flowise는 단일 리포지토리에 3개의 서로 다른 모듈이 있습니�
 1. 리포지토리 복제
 
     ```bash
-    git clone https://github.com/FlowiseAI/Flowise.git
+    git clone https://github.com/maximuslee1226/Flowise.git
     ```
 
 2. 리포지토리 폴더로 이동

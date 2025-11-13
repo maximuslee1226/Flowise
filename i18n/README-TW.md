@@ -82,7 +82,7 @@ Flowise 在單個 mono 儲存庫中有 3 個不同的模組。
 1.  複製儲存庫
 
     ```bash
-    git clone https://github.com/FlowiseAI/Flowise.git
+    git clone https://github.com/maximuslee1226/Flowise.git
     ```
 
 2.  進入儲存庫文件夾
