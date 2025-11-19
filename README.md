@@ -52,34 +52,129 @@ Download and Install [NodeJS](https://nodejs.org/en/download) >= 18.15.0
 
 ## 🐳 Docker
 
-### Docker Compose
+### Complete Setup with PostgreSQL & Ollama (Recommended)
+
+Get the F5-branded Flowise running with PostgreSQL (pgvector) and Ollama for local LLM inference - everything works out of the box!
+
+#### Quick Start
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/maximuslee1226/Flowise.git
+   cd Flowise
+   ```
+
+2. **Pull required images:**
+   ```bash
+   docker pull ankane/pgvector:latest    # PostgreSQL with pgvector
+   docker pull ollama/ollama:latest      # Local LLM inference
+   ```
+
+3. **Build and start all services:**
+   ```bash
+   docker compose -f docker-compose-complete.yml up -d --build
+   ```
+   This builds the F5-branded Flowise image from source and starts all services.
+
+4. **Access Flowise:**
+
+   Open [http://localhost:3000](http://localhost:3000)
+
+5. **(Optional) Pull Ollama models:**
+   ```bash
+   docker exec -it f5-flowise-ollama ollama pull llama3.2
+   ```
+
+**What you get:**
+- F5-branded Flowise UI on port `3000`
+- PostgreSQL with pgvector on port `5432`
+- Ollama API on port `11434`
+- All services networked and configured to work together
+- Persistent data storage via Docker volumes
+- Custom F5 branding built from source
+
+For detailed instructions, troubleshooting, and advanced configuration, see the [Docker Quick Start Guide](DOCKER-QUICKSTART.md).
+
+#### Service URLs
+- **Flowise**: http://localhost:3000
+- **Ollama API**: http://localhost:11434
+- **PostgreSQL**: localhost:5432 (credentials in `docker-compose-complete.yml`)
+
+#### Common Commands
+```bash
+# View logs
+docker compose -f docker-compose-complete.yml logs -f
+
+# Stop services
+docker compose -f docker-compose-complete.yml stop
+
+# Start services
+docker compose -f docker-compose-complete.yml start
+
+# Remove everything (including data)
+docker compose -f docker-compose-complete.yml down -v
+```
+
+### Alternative Docker Setups
+
+<details>
+<summary>Flowise Only (Basic Setup)</summary>
+
+#### Using Pre-built Image
+
+Run Flowise standalone with the pre-built image:
+
+```bash
+docker run -d \
+  --name flowise \
+  -p 3000:3000 \
+  -v flowise_data:/root/.flowise \
+  flowiseai/flowise:latest
+```
+
+#### Using Docker Compose
 
 1. Clone the Flowise project
 2. Go to `docker` folder at the root of the project
-3. Copy `.env.example` file, paste it into the same location, and rename to `.env` file
-4. `docker compose up -d`
+3. Copy `.env.example` file, paste it into the same location, and rename to `.env`
+4. Run:
+   ```bash
+   docker compose up -d
+   ```
 5. Open [http://localhost:3000](http://localhost:3000)
-6. You can bring the containers down by `docker compose stop`
+6. Stop with: `docker compose stop`
 
-### Docker Image
+</details>
+
+<details>
+<summary>Build from Source</summary>
+
+#### Build Custom Image
 
 1. Build the image locally:
-
-    ```bash
-    docker build --no-cache -t flowise .
-    ```
+   ```bash
+   docker build --no-cache -t flowise .
+   ```
 
 2. Run image:
-
-    ```bash
-    docker run -d --name flowise -p 3000:3000 flowise
-    ```
+   ```bash
+   docker run -d --name flowise -p 3000:3000 flowise
+   ```
 
 3. Stop image:
+   ```bash
+   docker stop flowise
+   ```
 
-    ```bash
-    docker stop flowise
-    ```
+#### Build with Docker Compose
+
+Use the F5 configuration for building from source:
+
+```bash
+docker compose -f docker-compose-f5.yml up -d --build
+```
+
+</details>
 
 ## 👨‍💻 Developers
 

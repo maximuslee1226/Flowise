@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  # PostgreSQL with pgvector extension
+  postgres:
+    image: ankane/pgvector:latest
+    container_name: f5-flowise-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: flowise
+      POSTGRES_USER: flowise
+      POSTGRES_PASSWORD: flowisepassword
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U flowise']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - flowise_network
+
+  # Ollama for local LLM inference
+  ollama:
+    image: ollama/ollama:latest
+    container_name: f5-flowise-ollama
+    restart: unless-stopped
+    ports:
+      - '11434:11434'
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - flowise_network
+
+  # Flowise application (F5-branded)
+  flowise:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: f5-flowise:latest
+    container_name: f5-flowise-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+    environment:
+      # Application
+      - PORT=3000
+      - NODE_ENV=production
+
+      # PostgreSQL Database Configuration
+      - DATABASE_TYPE=postgres
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=flowise
+      - DATABASE_USER=flowise
+      - DATABASE_PASSWORD=flowisepassword
+
+      # Paths
+      - APIKEY_PATH=/root/.flowise
+      - SECRETKEY_PATH=/root/.flowise
+      - LOG_PATH=/root/.flowise/logs
+      - BLOB_STORAGE_PATH=/root/.flowise/storage
+
+      # Optional: Uncomment to enable authentication
+      # - FLOWISE_USERNAME=admin
+      # - FLOWISE_PASSWORD=changeme
+
+      # Optional: Uncomment to configure CORS
+      # - CORS_ORIGINS=*
+      # - IFRAME_ORIGINS=*
+    ports:
+      - '3000:3000'
+    volumes:
+      - flowise_data:/root/.flowise
+    healthcheck:
+      test: ['CMD', 'wget', '--no-verbose', '--tries=1', '--spider', 'http://localhost:3000/api/v1/ping']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - flowise_network
+
+volumes:
+  postgres_data:
+    driver: local
+    name: f5_postgres_data
+  ollama_data:
+    driver: local
+    name: f5_ollama_data
+  flowise_data:
+    driver: local
+    name: f5_flowise_data
+
+networks:
+  flowise_network:
+    driver: bridge
+    name: f5_flowise_network
