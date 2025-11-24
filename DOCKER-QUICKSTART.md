@@ -54,9 +54,14 @@ Open your browser and navigate to:
 http://localhost:3000
 ```
 
-### 5. (Optional) Pull Ollama Models
+### 5. Ollama Models
 
-To use Ollama with Flowise, you need to pull at least one model:
+The Docker setup automatically pulls the embedding model on startup:
+
+**Automatically Installed:**
+- `nomic-embed-text` - Embedding model (pulled automatically on first start)
+
+**To pull additional models (optional):**
 
 ```bash
 # Pull a model (e.g., llama3.2)
@@ -75,6 +80,8 @@ Popular models to try:
 - `mistral` - Mistral AI's model
 - `codellama` - Code-specialized model
 - `phi3` - Microsoft's compact model
+
+**Note:** The first startup may take a few minutes while the embedding model downloads (~274MB).
 
 ### 6. Configure Ollama in Flowise
 

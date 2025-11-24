@@ -34,6 +34,27 @@ services:
     networks:
       - flowise_network
 
+  # Ollama model initialization - pulls embedding model on startup
+  ollama-pull-models:
+    image: ollama/ollama:latest
+    container_name: f5-flowise-ollama-init
+    depends_on:
+      - ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - flowise_network
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - |
+        echo "Waiting for Ollama service to be ready..."
+        sleep 10
+        echo "Pulling nomic-embed-text embedding model..."
+        ollama pull nomic-embed-text
+        echo "Embedding model ready!"
+    restart: "no"
+
   # Flowise application (using official pre-built image)
   flowise:
     image: flowiseai/flowise:latest

@@ -80,15 +80,16 @@ Get the F5-branded Flowise running with PostgreSQL (pgvector) and Ollama for loc
 
    Open [http://localhost:3000](http://localhost:3000)
 
-5. **(Optional) Pull Ollama models:**
+5. **Ollama models** (embedding model auto-installs on first start):
    ```bash
+   # Optional: Pull additional models like Llama
    docker exec -it f5-flowise-ollama ollama pull llama3.2
    ```
 
 **What you get:**
 - F5-branded Flowise UI on port `3000`
 - PostgreSQL with pgvector on port `5432`
-- Ollama API on port `11434`
+- Ollama API on port `11434` with auto-installed embedding model (`nomic-embed-text`)
 - All services connected via shared Docker network (`f5_flowise_network`)
 - Seamless inter-container communication using service names
 - Persistent data storage via Docker volumes
