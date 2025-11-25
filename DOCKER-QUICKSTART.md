@@ -81,7 +81,22 @@ Popular models to try:
 - `codellama` - Code-specialized model
 - `phi3` - Microsoft's compact model
 
+**How Auto-Installation Works:**
+1. Init container checks if Ollama is responding (`http://ollama:11434/api/tags`)
+2. Retries up to 30 times with 2-second intervals (max 60 seconds)
+3. Once Ollama responds, pulls the `nomic-embed-text` model via API
+4. Init container exits after successful download
+
 **Note:** The first startup may take a few minutes while the embedding model downloads (~274MB).
+
+**Troubleshooting:**
+```bash
+# Watch the initialization process
+docker logs -f f5-flowise-ollama-init
+
+# Manually test Ollama connectivity
+docker exec -it f5-flowise-app curl http://ollama:11434/api/tags
+```
 
 ### 6. Configure Ollama in Flowise
 

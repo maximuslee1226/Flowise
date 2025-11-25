@@ -36,12 +36,10 @@ services:
 
   # Ollama model initialization - pulls embedding model on startup
   ollama-pull-models:
-    image: ollama/ollama:latest
+    image: curlimages/curl:latest
     container_name: f5-flowise-ollama-init
     depends_on:
       - ollama
-    volumes:
-      - ollama_data:/root/.ollama
     networks:
       - flowise_network
     entrypoint: /bin/sh
@@ -49,10 +47,32 @@ services:
       - -c
       - |
         echo "Waiting for Ollama service to be ready..."
-        sleep 10
-        echo "Pulling nomic-embed-text embedding model..."
-        ollama pull nomic-embed-text
-        echo "Embedding model ready!"
+        max_attempts=30
+        attempt=0
+
+        while [ $$attempt -lt $$max_attempts ]; do
+          if curl -s http://ollama:11434/api/tags > /dev/null 2>&1; then
+            echo "Ollama is ready! Response received from http://ollama:11434/api/tags"
+            break
+          fi
+          attempt=$$((attempt + 1))
+          echo "Attempt $$attempt/$$max_attempts: Ollama not ready yet, waiting..."
+          sleep 2
+        done
+
+        if [ $$attempt -eq $$max_attempts ]; then
+          echo "ERROR: Ollama did not respond after $$max_attempts attempts"
+          exit 1
+        fi
+
+        echo "Installing ollama client and pulling embedding model..."
+        apk add --no-cache curl
+
+        # Use curl to trigger model pull via Ollama API
+        echo "Pulling nomic-embed-text embedding model via API..."
+        curl -X POST http://ollama:11434/api/pull -d '{"name":"nomic-embed-text"}' || exit 1
+
+        echo "Embedding model installation complete!"
     restart: "no"
 
   # Flowise application (F5-branded)
